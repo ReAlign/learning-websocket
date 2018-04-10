@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>聊天室</title>
+    <link rel="stylesheet" type="text/css" href="/css/index.css" />
+</head>
+
+<body>
+    <div class="main">
+        <div class="main-top">
+            socket.io demo
+        </div>
+        <!-- <div id="app">
+            {{ message }}
+        </div> -->
+        <div class="main-body">
+            <section class="chatRoomInfo">
+                <div class="info">当前共有
+                    <span class="chatNum">0</span>人在线。在线列表:&nbsp;
+                    <span class="chatList"></span>
+                </div>
+            </section>
+        </div>
+        <div class="main-footer clearfix">
+            <div class="input">
+                <input type="text" name="msg" id="msg" value="" />
+            </div>
+            <button type="button" class="send">发送</button>
+        </div>
+    </div>
+    <script src="js/lib/jquery-2.1.0.min.js"></script>
+    <script src="js/lib/vue@2.5.16.min.js"></script>
+    <script src="js/lib/socket.io.js"></script>
+    <script src="js/index.js"></script>
+</body>
+
+</html>
