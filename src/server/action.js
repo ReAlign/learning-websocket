@@ -1,4 +1,4 @@
-const Action = {
+module.exports = Action = {
     pushMsg(io) {
         io.emit('pushMsg', {
             title: 'pushMsg',
@@ -8,5 +8,3 @@ const Action = {
         console.log('push');
     }
 };
-
-module.exports = Action;
