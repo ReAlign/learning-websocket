@@ -7,6 +7,8 @@ const app = express();
 const server = http.Server(app);
 const io = socketIO(server);
 
+const action = require('./action');
+
 app.use(express.static(path.join(__dirname, '/../client')));
 
 app.get('/', (req, res) => {
@@ -19,6 +21,11 @@ let onlineCount = 0;
 
 io.on('connection', (socket) => {
     console.log('新用户登录');
+
+    // 定时推送
+    // setInterval(() => {
+    //     action.pushMsg(io);
+    // }, 3000);
 
     //监听新用户加入
     socket.on('login', (obj) => {

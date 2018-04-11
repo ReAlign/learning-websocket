@@ -20,18 +20,25 @@ window.onload = function () {
     }
     //          username="子木";
     userId = genUid();
+
     var userInfo = {
         'userid': userId,
         'username': username
     };
     //连接socket后端服务器
-    var socket = io.connect("ws://127.0.0.1:4000");
+    socket = io.connect("ws://127.0.0.1:4000");
     //通知用户有用户登录
     socket.emit('login', userInfo);
     //监听新用户登录
     socket.on('login', function (o) {
         updateMsg(o, 'login');
     });
+
+    //监听新用户登录
+    socket.on('pushMsg', function (o) {
+        console.log(o);
+    });
+
     //监听用户退出
     socket.on('logout', function (o) {
         updateMsg(o, 'logout');
@@ -53,15 +60,12 @@ window.onload = function () {
         $('.main-body').scrollTop(99999);
     })
     $('.send').click(function () {
-        var content = $('input[name="msg"]').val();
-        if (content) {
-            var obj = {
-                'userid': userId,
-                'username': username,
-                'content': content
-            }
-            socket.emit('message', obj);
-            $('input[name="msg"]').val("");
+        sendMsgEvt(userId, username);
+    });
+
+    $(document).keyup(function(event) {
+        if(event.keyCode == 13){
+          sendMsgEvt(userId, username);
         }
     });
 
@@ -71,6 +75,19 @@ window.onload = function () {
     //         message: 'Hello Vue!'
     //     }
     // });
+}
+
+function sendMsgEvt(userId, username) {
+    var content = $('input[name="msg"]').val();
+    if (content) {
+        var obj = {
+            'userid': userId,
+            'username': username,
+            'content': content
+        }
+        socket.emit('message', obj);
+        $('input[name="msg"]').val("");
+    }
 }
 
 /*用户id生成*/
